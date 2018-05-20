@@ -26,6 +26,7 @@ public class LoginController {
 		if(user == null) {
 			return new ResponseEntity<UserDTO>(HttpStatus.NOT_FOUND);
 		}
+		user.setPhoto(null);
 		return new ResponseEntity<UserDTO>(new UserDTO(user), HttpStatus.OK);
 	}
 }

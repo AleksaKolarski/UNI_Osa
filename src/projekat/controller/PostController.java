@@ -1,6 +1,7 @@
 package projekat.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import projekat.dto.CommentDTO;
 import projekat.dto.PostDTO;
+import projekat.entity.Comment;
 import projekat.entity.Post;
 import projekat.service.PostServiceInterface;
 import projekat.service.UserServiceInterface;
@@ -36,8 +39,8 @@ public class PostController {
 		List<Post> posts = postService.findAll();
 		List<PostDTO> postsDTO = new ArrayList<PostDTO>();
 		for(Post post: posts) {
-			post.setDate(null);
 			post.getUser().setPassword(null);
+			post.getUser().setPhoto(null);
 			postsDTO.add(new PostDTO(post));
 		}
 		return new ResponseEntity<List<PostDTO>>(postsDTO, HttpStatus.OK);
@@ -50,9 +53,24 @@ public class PostController {
 		if(post == null) {
 			return new ResponseEntity<PostDTO>(HttpStatus.NOT_FOUND);
 		}
-		post.setDate(null);
 		post.getUser().setPassword(null);
+		post.getUser().setPhoto(null);
 		return new ResponseEntity<PostDTO>(new PostDTO(post), HttpStatus.OK);
+	}
+	
+	// GET COMMENTS
+	@GetMapping(value = "/{id}/comments")
+	public ResponseEntity<List<CommentDTO>> getCommentsByPostId(@PathVariable("id") Integer id){
+		Post post = postService.findById(id);
+		if(post == null) {
+			return new ResponseEntity<List<CommentDTO>>(HttpStatus.NOT_FOUND);
+		}
+		List<Comment> comments = post.getComments();
+		List<CommentDTO> commentsDTO = new ArrayList<CommentDTO>();
+		for(Comment comment: comments) {
+			commentsDTO.add(new CommentDTO(comment));
+		}
+		return new ResponseEntity<List<CommentDTO>>(commentsDTO, HttpStatus.OK);
 	}
 	
 	// EDIT
@@ -65,7 +83,7 @@ public class PostController {
 		
 		post.setTitle(postDTO.getTitle());
 		post.setDescription(postDTO.getDescription());
-		//post.setPhoto(postDTO.getPhoto());
+		post.setPhoto(postDTO.getPhoto());
 		
 		postService.save(post);
 		
@@ -81,7 +99,8 @@ public class PostController {
 		post.setUser(userService.findByUsername(postDTO.getUser().getUsername()));
 		post.setLikes(0);
 		post.setDislikes(0);
-		//post.setPhoto(postDTO.getPhoto());
+		post.setPhoto(postDTO.getPhoto());
+		post.setDate(new Date());
 		
 		postService.save(post);
 		

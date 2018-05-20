@@ -1,6 +1,7 @@
 package projekat.controller;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import projekat.dto.UserDTO;
@@ -95,7 +98,6 @@ public class UserController {
 		user.setName(userDTO.getName());
 		user.setUsername(userDTO.getUsername());
 		user.setPassword(userDTO.getPassword());
-		user.setPhoto(userDTO.getPhoto());
 		
 		userService.save(user);
 		
@@ -103,7 +105,7 @@ public class UserController {
 	}
 	
 	// DELETE
-	@DeleteMapping(value = "/{username}")
+	@DeleteMapping(value = "/{username}", consumes = "text/plain")
 	public ResponseEntity<Void> deleteUser(@PathVariable("username") String username){
 		User user = userService.findByUsername(username);
 		if(user == null) {
