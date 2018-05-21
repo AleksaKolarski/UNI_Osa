@@ -2,7 +2,7 @@ INSERT INTO users (user_name, user_username, user_password) VALUES ('USER1', 'us
 INSERT INTO users (user_name, user_username, user_password) VALUES ('USER2', 'user2', 'pass2');
 INSERT INTO users (user_name, user_username, user_password) VALUES ('USER3', 'user3', 'pass3');
 
-INSERT INTO posts (post_title, post_description, post_date, post_likes, post_dislikes, user_id) VALUES ('post1', 'opis1', '2013-01-01', 1, 1, 1);
+INSERT INTO posts (post_title, post_description, post_date, post_likes, post_dislikes, user_id) VALUES ('post1', 'Dugacak opis post 1 ovo je neki dugacak opis bla bla bla ima nesto ima svaceg svasta nesto', '2013-01-01', 1, 1, 1);
 INSERT INTO posts (post_title, post_description, post_date, post_likes, post_dislikes, user_id) VALUES ('post2', 'opis2', '2014-01-01', 2, 2, 1);
 INSERT INTO posts (post_title, post_description, post_date, post_likes, post_dislikes, user_id) VALUES ('post3', 'opis3', '2015-01-01', 3, 3, 1);
 INSERT INTO posts (post_title, post_description, post_date, post_likes, post_dislikes, user_id) VALUES ('post4', 'opis4', '2016-01-01', 4, 4, 3);
@@ -20,7 +20,9 @@ INSERT INTO post_tags (post_id, tag_id) VALUES (2, 2);
 INSERT INTO post_tags (post_id, tag_id) VALUES (3, 1);
 
 INSERT INTO comments (comment_title, comment_description, comment_date, comment_likes, comment_dislikes, post_id, user_id) VALUES ('komentar1', 'sadrzaj1', '2013-01-01', 1, 1, 1, 1);
-INSERT INTO comments (comment_title, comment_description, comment_date, comment_likes, comment_dislikes, post_id, user_id) VALUES ('komentar2', 'sadrzaj2', '2014-01-01', 2, 2, 1, 1);
+INSERT INTO comments (comment_title, comment_description, comment_date, comment_likes, comment_dislikes, post_id, user_id) VALUES ('komentar2', 'sadrzaj2 bla bla dugacki komentar svasta nesto svasta nesto svasta nesto svasta nesto bla bla nesto svasta', '2014-01-01', 2, 2, 1, 1);
 INSERT INTO comments (comment_title, comment_description, comment_date, comment_likes, comment_dislikes, post_id, user_id) VALUES ('komentar3', 'sadrzaj3', '2015-01-01', 2, 2, 1, 2);
-INSERT INTO comments (comment_title, comment_description, comment_date, comment_likes, comment_dislikes, post_id, user_id) VALUES ('komentar4', 'sadrzaj4', '2016-01-01', 2, 2, 2, 3);
+INSERT INTO comments (comment_title, comment_description, comment_date, comment_likes, comment_dislikes, post_id, user_id) VALUES ('komentar4', 'sadrzaj4', '2015-01-01', 3, 3, 1, 2);
+INSERT INTO comments (comment_title, comment_description, comment_date, comment_likes, comment_dislikes, post_id, user_id) VALUES ('komentar5', 'sadrzaj5', '2015-01-01', 4, 4, 1, 2);
+INSERT INTO comments (comment_title, comment_description, comment_date, comment_likes, comment_dislikes, post_id, user_id) VALUES ('komentar6', 'sadrzaj6', '2016-01-01', 2, 2, 2, 3);
 

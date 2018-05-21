@@ -68,6 +68,7 @@ public class PostController {
 		List<Comment> comments = post.getComments();
 		List<CommentDTO> commentsDTO = new ArrayList<CommentDTO>();
 		for(Comment comment: comments) {
+			comment.getUser().setPassword(null);
 			commentsDTO.add(new CommentDTO(comment));
 		}
 		return new ResponseEntity<List<CommentDTO>>(commentsDTO, HttpStatus.OK);

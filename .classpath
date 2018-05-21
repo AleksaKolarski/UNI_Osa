@@ -13,6 +13,7 @@
 	<classpathentry kind="lib" path="compile-libs/spring-data-jpa-2.0.0.BUILD-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="compile-libs/spring-expression-5.0.0.BUILD-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="compile-libs/spring-web-5.0.0.BUILD-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="compile-libs/jackson-annotations-2.8.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="compile-libs/javax.servlet-api-3.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
