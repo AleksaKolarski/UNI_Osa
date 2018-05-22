@@ -1,5 +1,6 @@
 package projekat.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,4 +35,13 @@ public class PostService implements PostServiceInterface {
 		postRepository.delete(id);
 	}
 	
+	@Override
+	public List<Post> findByDateAfterOrderByDateAsc(Date date){
+		return postRepository.findByDateAfterOrderByDateAsc(date);
+	}
+	
+	@Override
+	public List<Post> findByDateAfterOrderByLikesDesc(Date date){
+		return postRepository.findByDateAfterOrderByLikesDesc(date);
+	}
 }

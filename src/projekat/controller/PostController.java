@@ -29,71 +29,97 @@ public class PostController {
 
 	@Autowired
 	private PostServiceInterface postService;
-	
+
 	@Autowired
 	private UserServiceInterface userService;
-	
+
 	// GET ALL
 	@GetMapping
-	public ResponseEntity<List<PostDTO>> getPosts(){
+	public ResponseEntity<List<PostDTO>> getPosts() {
 		List<Post> posts = postService.findAll();
 		List<PostDTO> postsDTO = new ArrayList<PostDTO>();
-		for(Post post: posts) {
+		for (Post post : posts) {
 			post.getUser().setPassword(null);
 			post.getUser().setPhoto(null);
 			postsDTO.add(new PostDTO(post));
 		}
 		return new ResponseEntity<List<PostDTO>>(postsDTO, HttpStatus.OK);
 	}
-	
+
+	// GET ALL (date limit, order by date)
+	@PostMapping(value = "/orderByDate")
+	public ResponseEntity<List<PostDTO>> getPostsOrderByDate(@RequestBody Date date) {
+		List<Post> posts = postService.findByDateAfterOrderByDateAsc(date);
+		List<PostDTO> postsDTO = new ArrayList<PostDTO>();
+		for (Post post : posts) {
+			post.getUser().setPassword(null);
+			post.getUser().setPhoto(null);
+			postsDTO.add(new PostDTO(post));
+		}
+		return new ResponseEntity<List<PostDTO>>(postsDTO, HttpStatus.OK);
+	}
+
+	// GET ALL (date limit, order by likes)
+	@PostMapping(value = "/orderByLikes")
+	public ResponseEntity<List<PostDTO>> getPostsOrderByLikes(@RequestBody Date date) {
+		List<Post> posts = postService.findByDateAfterOrderByLikesDesc(date);
+		List<PostDTO> postsDTO = new ArrayList<PostDTO>();
+		for (Post post : posts) {
+			post.getUser().setPassword(null);
+			post.getUser().setPhoto(null);
+			postsDTO.add(new PostDTO(post));
+		}
+		return new ResponseEntity<List<PostDTO>>(postsDTO, HttpStatus.OK);
+	}
+
 	// GET BY ID
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<PostDTO> getById(@PathVariable("id") Integer id){
+	public ResponseEntity<PostDTO> getById(@PathVariable("id") Integer id) {
 		Post post = postService.findById(id);
-		if(post == null) {
+		if (post == null) {
 			return new ResponseEntity<PostDTO>(HttpStatus.NOT_FOUND);
 		}
 		post.getUser().setPassword(null);
 		post.getUser().setPhoto(null);
 		return new ResponseEntity<PostDTO>(new PostDTO(post), HttpStatus.OK);
 	}
-	
+
 	// GET COMMENTS
 	@GetMapping(value = "/{id}/comments")
-	public ResponseEntity<List<CommentDTO>> getCommentsByPostId(@PathVariable("id") Integer id){
+	public ResponseEntity<List<CommentDTO>> getCommentsByPostId(@PathVariable("id") Integer id) {
 		Post post = postService.findById(id);
-		if(post == null) {
+		if (post == null) {
 			return new ResponseEntity<List<CommentDTO>>(HttpStatus.NOT_FOUND);
 		}
 		List<Comment> comments = post.getComments();
 		List<CommentDTO> commentsDTO = new ArrayList<CommentDTO>();
-		for(Comment comment: comments) {
+		for (Comment comment : comments) {
 			comment.getUser().setPassword(null);
 			commentsDTO.add(new CommentDTO(comment));
 		}
 		return new ResponseEntity<List<CommentDTO>>(commentsDTO, HttpStatus.OK);
 	}
-	
+
 	// EDIT
 	@PutMapping(consumes = "application/json")
-	public ResponseEntity<PostDTO> updatePost(@RequestBody PostDTO postDTO){
+	public ResponseEntity<PostDTO> updatePost(@RequestBody PostDTO postDTO) {
 		Post post = postService.findById(postDTO.getId());
-		if(post == null) {
+		if (post == null) {
 			return new ResponseEntity<PostDTO>(HttpStatus.BAD_REQUEST);
 		}
-		
+
 		post.setTitle(postDTO.getTitle());
 		post.setDescription(postDTO.getDescription());
 		post.setPhoto(postDTO.getPhoto());
-		
+
 		postService.save(post);
-		
+
 		return new ResponseEntity<PostDTO>(new PostDTO(post), HttpStatus.OK);
 	}
-	
+
 	// CREATE
 	@PostMapping(consumes = "application/json")
-	public ResponseEntity<PostDTO> createPost(@RequestBody PostDTO postDTO){
+	public ResponseEntity<PostDTO> createPost(@RequestBody PostDTO postDTO) {
 		Post post = new Post();
 		post.setTitle(postDTO.getTitle());
 		post.setDescription(postDTO.getDescription());
@@ -102,20 +128,44 @@ public class PostController {
 		post.setDislikes(0);
 		post.setPhoto(postDTO.getPhoto());
 		post.setDate(new Date());
-		
+
 		postService.save(post);
-		
+
 		return new ResponseEntity<PostDTO>(new PostDTO(post), HttpStatus.CREATED);
 	}
-	
+
 	// DELETE
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> deletePost(@PathVariable("id") Integer id){
+	public ResponseEntity<Void> deletePost(@PathVariable("id") Integer id) {
 		Post post = postService.findById(id);
-		if(post == null) {
+		if (post == null) {
 			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 		postService.remove(id);
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
+	// LIKE POST
+	@PostMapping(value = "/{id}/like")
+	public ResponseEntity<Integer> likePost(@PathVariable("id") Integer id) {
+		Post post = postService.findById(id);
+		if (post == null) {
+			return new ResponseEntity<Integer>(HttpStatus.NOT_FOUND);
+		}
+		post.setLikes(post.getLikes() + 1);
+		postService.save(post);
+		return new ResponseEntity<Integer>(post.getLikes(), HttpStatus.OK);
+	}
+
+	// DISLIKE POST
+	@PostMapping(value = "/{id}/dislike")
+	public ResponseEntity<Integer> dislikePost(@PathVariable("id") Integer id) {
+		Post post = postService.findById(id);
+		if (post == null) {
+			return new ResponseEntity<Integer>(HttpStatus.NOT_FOUND);
+		}
+		post.setDislikes(post.getDislikes() + 1);
+		postService.save(post);
+		return new ResponseEntity<Integer>(post.getDislikes(), HttpStatus.OK);
 	}
 }

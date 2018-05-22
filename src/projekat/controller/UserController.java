@@ -105,7 +105,7 @@ public class UserController {
 	}
 	
 	// DELETE
-	@DeleteMapping(value = "/{username}", consumes = "text/plain")
+	@DeleteMapping(value = "/{username}")
 	public ResponseEntity<Void> deleteUser(@PathVariable("username") String username){
 		User user = userService.findByUsername(username);
 		if(user == null) {
