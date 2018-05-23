@@ -1,6 +1,8 @@
 package projekat.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import projekat.dto.CommentDTO;
+import projekat.dto.PostDTO;
 import projekat.entity.Comment;
+import projekat.entity.Post;
 import projekat.service.CommentServiceInterface;
 import projekat.service.PostServiceInterface;
 import projekat.service.UserServiceInterface;
@@ -94,7 +98,7 @@ public class CommentController {
 		}
 		comment.setLikes(comment.getLikes() + 1);
 		commentService.save(comment);
-		return new ResponseEntity<Integer>(comment.getLikes(), HttpStatus.OK); 
+		return new ResponseEntity<Integer>(comment.getLikes(), HttpStatus.OK);
 	}
 
 	// DISLIKE COMMENT

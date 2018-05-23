@@ -15,7 +15,7 @@ public interface PostServiceInterface {
 	
 	void remove(Integer id);
 	
-	List<Post> findByDateAfterOrderByDateAsc(Date date);
+	List<Post> findByDateAfterOrderByDateDesc(Date date);
 	
 	List<Post> findByDateAfterOrderByLikesDesc(Date date);
 }

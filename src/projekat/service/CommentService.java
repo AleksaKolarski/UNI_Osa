@@ -34,4 +34,13 @@ public class CommentService implements CommentServiceInterface {
 		commentRepository.delete(commentId);
 	}
 	
+	@Override
+	public List<Comment> findByPost_IdIsOrderByDateDesc(Integer postId){
+		return commentRepository.findByPost_IdIsOrderByDateDesc(postId);
+	}
+	
+	@Override
+	public List<Comment> findByPost_IdIsOrderByLikesDesc(Integer postId){
+		return commentRepository.findByPost_IdIsOrderByLikesDesc(postId);
+	}
 }

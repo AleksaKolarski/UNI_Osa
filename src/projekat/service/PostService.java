@@ -36,8 +36,8 @@ public class PostService implements PostServiceInterface {
 	}
 	
 	@Override
-	public List<Post> findByDateAfterOrderByDateAsc(Date date){
-		return postRepository.findByDateAfterOrderByDateAsc(date);
+	public List<Post> findByDateAfterOrderByDateDesc(Date date){
+		return postRepository.findByDateAfterOrderByDateDesc(date);
 	}
 	
 	@Override

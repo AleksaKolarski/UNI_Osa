@@ -20,6 +20,7 @@ import projekat.dto.CommentDTO;
 import projekat.dto.PostDTO;
 import projekat.entity.Comment;
 import projekat.entity.Post;
+import projekat.service.CommentServiceInterface;
 import projekat.service.PostServiceInterface;
 import projekat.service.UserServiceInterface;
 
@@ -32,6 +33,9 @@ public class PostController {
 
 	@Autowired
 	private UserServiceInterface userService;
+	
+	@Autowired
+	private CommentServiceInterface commentService;
 
 	// GET ALL
 	@GetMapping
@@ -49,7 +53,7 @@ public class PostController {
 	// GET ALL (date limit, order by date)
 	@PostMapping(value = "/orderByDate")
 	public ResponseEntity<List<PostDTO>> getPostsOrderByDate(@RequestBody Date date) {
-		List<Post> posts = postService.findByDateAfterOrderByDateAsc(date);
+		List<Post> posts = postService.findByDateAfterOrderByDateDesc(date);
 		List<PostDTO> postsDTO = new ArrayList<PostDTO>();
 		for (Post post : posts) {
 			post.getUser().setPassword(null);
@@ -92,6 +96,30 @@ public class PostController {
 			return new ResponseEntity<List<CommentDTO>>(HttpStatus.NOT_FOUND);
 		}
 		List<Comment> comments = post.getComments();
+		List<CommentDTO> commentsDTO = new ArrayList<CommentDTO>();
+		for (Comment comment : comments) {
+			comment.getUser().setPassword(null);
+			commentsDTO.add(new CommentDTO(comment));
+		}
+		return new ResponseEntity<List<CommentDTO>>(commentsDTO, HttpStatus.OK);
+	}
+
+	// GET ALL COMMENTS (order by date)
+	@GetMapping(value = "/{id}/comments/orderByDate")
+	public ResponseEntity<List<CommentDTO>> getCommentsOrderByDate(@PathVariable("id") Integer postId) {
+		List<Comment> comments = commentService.findByPost_IdIsOrderByDateDesc(postId);
+		List<CommentDTO> commentsDTO = new ArrayList<CommentDTO>();
+		for (Comment comment: comments) {
+			comment.getUser().setPassword(null);
+			commentsDTO.add(new CommentDTO(comment));
+		}
+		return new ResponseEntity<List<CommentDTO>>(commentsDTO, HttpStatus.OK);
+	}
+
+	// GET ALL COMMENTS (order by likes)
+	@GetMapping(value = "/{id}/comments/orderByLikes")
+	public ResponseEntity<List<CommentDTO>> getCommentsOrderByLikes(@PathVariable("id") Integer postId) {
+		List<Comment> comments = commentService.findByPost_IdIsOrderByLikesDesc(postId);
 		List<CommentDTO> commentsDTO = new ArrayList<CommentDTO>();
 		for (Comment comment : comments) {
 			comment.getUser().setPassword(null);

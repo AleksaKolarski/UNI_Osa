@@ -14,4 +14,7 @@ public interface CommentServiceInterface {
 	
 	void remove(Integer commentId);
 	
+	List<Comment> findByPost_IdIsOrderByDateDesc(Integer postId);
+	
+	List<Comment> findByPost_IdIsOrderByLikesDesc(Integer postId);
 }
