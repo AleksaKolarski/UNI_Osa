@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import projekat.entity.Post;
-import projekat.entity.User;
 
 public class PostDTO implements Serializable {
 

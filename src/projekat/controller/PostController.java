@@ -18,10 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import projekat.dto.CommentDTO;
 import projekat.dto.PostDTO;
+import projekat.dto.TagDTO;
 import projekat.entity.Comment;
 import projekat.entity.Post;
+import projekat.entity.Tag;
 import projekat.service.CommentServiceInterface;
 import projekat.service.PostServiceInterface;
+import projekat.service.TagServiceInterface;
 import projekat.service.UserServiceInterface;
 
 @RestController
@@ -36,6 +39,9 @@ public class PostController {
 	
 	@Autowired
 	private CommentServiceInterface commentService;
+	
+	@Autowired
+	private TagServiceInterface tagService;
 
 	// GET ALL
 	@GetMapping
@@ -85,6 +91,7 @@ public class PostController {
 		}
 		post.getUser().setPassword(null);
 		post.getUser().setPhoto(null);
+		post.setTags(tagService.findByPost_Id(post.getId()));
 		return new ResponseEntity<PostDTO>(new PostDTO(post), HttpStatus.OK);
 	}
 
@@ -127,7 +134,18 @@ public class PostController {
 		}
 		return new ResponseEntity<List<CommentDTO>>(commentsDTO, HttpStatus.OK);
 	}
-
+	
+	// GET TAGS
+	@GetMapping(value = "/{id}/tags")
+	public ResponseEntity<List<TagDTO>> getTags(@PathVariable("id") Integer id){
+		List<Tag> tags = tagService.findByPost_Id(id);
+		List<TagDTO> tagsDTO = new ArrayList<TagDTO>();
+		for(Tag tag: tags) {
+			tagsDTO.add(new TagDTO(tag));
+		}
+		return new ResponseEntity<List<TagDTO>>(tagsDTO, HttpStatus.OK);
+	}
+	
 	// EDIT
 	@PutMapping(consumes = "application/json")
 	public ResponseEntity<PostDTO> updatePost(@RequestBody PostDTO postDTO) {

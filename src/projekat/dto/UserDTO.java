@@ -1,6 +1,5 @@
 package projekat.dto;
 
-import java.awt.image.BufferedImage;
 
 import projekat.entity.User;
 
