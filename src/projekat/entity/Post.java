@@ -49,11 +49,11 @@ public class Post implements Serializable {
 	@Column(name = "post_dislikes", unique = false, nullable = false, columnDefinition = "int default 0")
 	private Integer dislikes;
 	
-	@Column(name = "longitude", nullable = false, columnDefinition = "int default 0")
-	private float longitude;
+	@Column(name = "longitude", nullable = false, columnDefinition = "double default 0")
+	private double longitude;
 	
-	@Column(name = "latitude", nullable = false, columnDefinition = "int default 0")
-	private float latitude;
+	@Column(name = "latitude", nullable = false, columnDefinition = "double default 0")
+	private double latitude;
 	
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
 	private List<Comment> comments = new ArrayList<>();
@@ -128,19 +128,19 @@ public class Post implements Serializable {
 		this.dislikes = dislikes;
 	}
 
-	public float getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(float longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
-	public float getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(float latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 

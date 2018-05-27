@@ -2,11 +2,11 @@ INSERT INTO users (user_name, user_username, user_password) VALUES ('USER1', 'us
 INSERT INTO users (user_name, user_username, user_password) VALUES ('USER2', 'user2', 'pass2');
 INSERT INTO users (user_name, user_username, user_password) VALUES ('USER3', 'user3', 'pass3');
 
-INSERT INTO posts (post_title, post_description, post_date, post_likes, post_dislikes, user_id) VALUES ('post1', 'Dugacak opis post 1 ovo je neki dugacak opis bla bla bla ima nesto ima svaceg svasta nesto', '2013-01-01', 1, 1, 1);
-INSERT INTO posts (post_title, post_description, post_date, post_likes, post_dislikes, user_id) VALUES ('post2', 'opis2', '2014-01-01', 2, 2, 1);
-INSERT INTO posts (post_title, post_description, post_date, post_likes, post_dislikes, user_id) VALUES ('post3', 'opis3', '2015-01-01', 3, 3, 1);
-INSERT INTO posts (post_title, post_description, post_date, post_likes, post_dislikes, user_id) VALUES ('post4', 'opis4', '2016-01-01', 4, 4, 3);
-INSERT INTO posts (post_title, post_description, post_date, post_likes, post_dislikes, user_id) VALUES ('post5', 'opis5', '2017-01-01', 5, 5, 3);
+INSERT INTO posts (post_title, post_description, latitude, longitude, post_date, post_likes, post_dislikes, user_id) VALUES ('post1', 'Dugacak opis post 1 ovo je neki dugacak opis bla bla bla ima nesto ima svaceg svasta nesto', 36.32, 21.64, '2013-01-01', 1, 1, 1);
+INSERT INTO posts (post_title, post_description, latitude, longitude, post_date, post_likes, post_dislikes, user_id) VALUES ('post2', 'opis2', 12.34, 12.34, '2014-01-01', 2, 2, 1);
+INSERT INTO posts (post_title, post_description, latitude, longitude, post_date, post_likes, post_dislikes, user_id) VALUES ('post3', 'opis3', 23.45, 23.45, '2015-01-01', 3, 3, 1);
+INSERT INTO posts (post_title, post_description, latitude, longitude, post_date, post_likes, post_dislikes, user_id) VALUES ('post4', 'opis4', 13.67, 13.74, '2016-01-01', 4, 4, 3);
+INSERT INTO posts (post_title, post_description, latitude, longitude, post_date, post_likes, post_dislikes, user_id) VALUES ('post5', 'opis5', 32.12, 11.32, '2017-01-01', 5, 5, 3);
 
 INSERT INTO tags (tag_name) VALUES ('tag1');
 INSERT INTO tags (tag_name) VALUES ('tag2');

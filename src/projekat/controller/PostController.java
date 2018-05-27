@@ -174,9 +174,19 @@ public class PostController {
 		post.setDislikes(0);
 		post.setPhoto(postDTO.getPhoto());
 		post.setDate(new Date());
+		System.out.println("Latitude: " + postDTO.getLatitude());
+		System.out.println("Longitude: " + postDTO.getLongitude());
+		post.setLatitude(postDTO.getLatitude());
+		post.setLongitude(postDTO.getLongitude());
+		List<TagDTO> tagsDTO = postDTO.getTags();
+		ArrayList<Tag> tags = new ArrayList<Tag>();
+		
+		for(TagDTO tagDTO: tagsDTO) {
+			Tag tag = tagService.findOne(tagDTO.getId());
+			post.getTags().add(tag);
+		}
 
 		postService.save(post);
-
 		return new ResponseEntity<PostDTO>(new PostDTO(post), HttpStatus.CREATED);
 	}
 

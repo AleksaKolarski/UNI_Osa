@@ -2,6 +2,7 @@ package projekat.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import projekat.entity.Post;
 
@@ -14,16 +15,16 @@ public class PostDTO implements Serializable {
 	private Date date;
 	private Integer likes;
 	private Integer dislikes;
-	private float longitude;
-	private float latitude;
+	private double longitude;
+	private double latitude;
 	private UserDTO user;
-	
+	private List<TagDTO> tags;
 	
 	public PostDTO() {
 	}
 
 	public PostDTO(Integer id, String title, String description, byte[] photo, Date date, Integer likes,
-			Integer dislikes, float longitude, float latitude, UserDTO user) {
+			Integer dislikes, double longitude, double latitude, UserDTO user) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -101,19 +102,19 @@ public class PostDTO implements Serializable {
 		this.dislikes = dislikes;
 	}
 
-	public float getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(float longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
-	public float getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(float latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
@@ -123,5 +124,13 @@ public class PostDTO implements Serializable {
 
 	public void setUser(UserDTO user) {
 		this.user = user;
+	}
+
+	public List<TagDTO> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<TagDTO> tags) {
+		this.tags = tags;
 	}
 }
